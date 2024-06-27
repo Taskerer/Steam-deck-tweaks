@@ -3,7 +3,7 @@
 
 ## Включить
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/wallentx/steamos-tweaks/main/enable)
+bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/enable)
 ```
 
 ## Отключить
