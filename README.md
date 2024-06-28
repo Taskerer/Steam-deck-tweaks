@@ -8,5 +8,5 @@ bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/mai
 
 ## Отключить
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/wallentx/steamos-tweaks/main/disable)
+bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/disable)
 ```
