@@ -9,7 +9,8 @@ cat << EOF | sudo tee /etc/security/limits.d/memlock.conf
 * soft memlock 2147484
 EOF
 cat << EOF | sudo tee /etc/udev/rules.d/64-ioschedulers.rules
-ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="none"
-ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="kyber"
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", 
+ATTR{queue/scheduler}="kyber"
 EOF
-sudo sed -i -e '/home/s/\bdefaults\b/&,noatime/' /etc/fstab
+sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab
