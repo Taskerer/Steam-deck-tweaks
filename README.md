@@ -1,7 +1,7 @@
 # Твики для SteamOS
 
 
-## Включить твики
+## Применить твики
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/Tweak-ON)
 ```
