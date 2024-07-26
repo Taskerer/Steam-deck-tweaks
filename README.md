@@ -1,12 +1,12 @@
-# steamos-tweaks
+# Твики для SteamOS
 
 
-## Включить
+## Включить твики
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/enable)
+bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/Tweak-ON)
 ```
 
-## Отключить
+## Отключить твики
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/disable)
+bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/Tweak_OFF)
 ```
