@@ -8,5 +8,5 @@ bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/mai
 
 ## Отключить твики
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/Tweak_OFF)
+bash <(curl -Ls https://raw.githubusercontent.com/taskerer/steam-deck-tweaks/main/Tweak-OFF)
 ```
