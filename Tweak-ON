@@ -1,21 +1,38 @@
 #!/usr/bin/env bash
 
+# Activate MGLRU (Multi-Gen. Least Recently Used)
+############################################################################### 
+
 cat << EOF | sudo tee /etc/tmpfiles.d/mglru.conf
 w /sys/kernel/mm/lru_gen/enabled - - - - 7
 w /sys/kernel/mm/lru_gen/min_ttl_ms - - - - 0
 EOF
+
+# Unlocking the memory lock
+###############################################################################
+
 cat << EOF | sudo tee /etc/security/limits.d/memlock.conf
 * hard memlock 2147484
 * soft memlock 2147484
 EOF
+
+# Changing the I/O (Input/Output) Scheduler
+############################################################################### 
+
 cat << EOF | sudo tee /etc/udev/rules.d/64-ioschedulers.rules
 ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="kyber"
 ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", 
 ATTR{queue/scheduler}="kyber"
 EOF
+
+# Preventing the superfluous book-keeping of File Access Times
+###############################################################################
+
 sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab
 
-#NEW GENERATION TWEAKS
+# NEW GENERATION TWEAKS
+###############################################################################
+
 systemctl stop systemd-coredump.socket
 systemctl stop kdumpst-init.service
 systemctl stop steamos-kdumpst-layer.service
