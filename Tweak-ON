@@ -17,7 +17,7 @@ EOF
 # Unlocking the memory lock
 ###############################################################################
 
-cat << EOF | sudo tee /etc/security/limits.d/memlock.conf
+cat << EOF | sudo tee /etc/security/limits.d/memlock.conf &>/dev/null
 * hard memlock 2147484
 * soft memlock 2147484
 EOF
@@ -25,7 +25,7 @@ EOF
 # Changing the I/O (Input/Output) Scheduler
 ############################################################################### 
 
-cat << EOF | sudo tee /etc/udev/rules.d/64-ioschedulers.rules
+cat << EOF | sudo tee /etc/udev/rules.d/64-ioschedulers.rules &>/dev/null
 ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="kyber"
 ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", 
 ATTR{queue/scheduler}="kyber"
@@ -34,40 +34,40 @@ EOF
 # Preventing the superfluous book-keeping of File Access Times
 ###############################################################################
 
-sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab
+sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab &>/dev/null
 
 # Input controller overclocking
 ###############################################################################
 
-sudo sed -i 's/\bGRUB_CMDLINE_LINUX_DEFAULT="\b/&usbhid.jspoll=1 /' /etc/default/grub
-sudo grub-mkconfig -o /boot/efi/EFI/steamos/grub.cfg
+sudo sed -i 's/\bGRUB_CMDLINE_LINUX_DEFAULT="\b/&usbhid.jspoll=1 /' /etc/default/grub &>/dev/null
+sudo grub-mkconfig -o /boot/efi/EFI/steamos/grub.cfg &>/dev/null
 
 # NEW GENERATION TWEAKS
 ###############################################################################
 
-sudo systemctl stop systemd-coredump.socket
-sudo systemctl stop kdumpst-init.service
-sudo systemctl stop steamos-kdumpst-layer.service
-sudo systemctl stop steamos-dump-info.service
-sudo systemctl stop steamos-cfs-debugfs-tunings.service
-sudo systemctl stop gpu-trace.service
-sudo systemctl stop steamos-log-submitter.service
-sudo systemctl stop steamos-devkit-service.service
+sudo systemctl stop systemd-coredump.socket &>/dev/null
+sudo systemctl stop kdumpst-init.service &>/dev/null
+sudo systemctl stop steamos-kdumpst-layer.service &>/dev/null
+sudo systemctl stop steamos-dump-info.service &>/dev/null
+sudo systemctl stop steamos-cfs-debugfs-tunings.service &>/dev/null
+sudo systemctl stop gpu-trace.service &>/dev/null
+sudo systemctl stop steamos-log-submitter.service &>/dev/null
+sudo systemctl stop steamos-devkit-service.service &>/dev/null
 
-sudo sysctl -w debug.kprobes-optimization=0
-sudo sysctl -w debug.exception-trace=0
-sudo sysctl -w kernel.printk="0 0 0 0"
-sudo sysctl -w net.ipv4.tcp_timestamps=0
-sudo sysctl -w kernel.nmi_watchdog=0
+sudo sysctl -w debug.kprobes-optimization=0 &>/dev/null
+sudo sysctl -w debug.exception-trace=0 &>/dev/null
+sudo sysctl -w kernel.printk="0 0 0 0" &>/dev/null
+sudo sysctl -w net.ipv4.tcp_timestamps=0 &>/dev/null
+sudo sysctl -w kernel.nmi_watchdog=0 &>/dev/null
 
-sudo systemctl mask systemd-coredump.socket
-sudo systemctl mask kdumpst-init.service
-sudo systemctl mask steamos-kdumpst-layer.service
-sudo systemctl mask steamos-dump-info.service
-sudo systemctl mask steamos-cfs-debugfs-tunings.service
-sudo systemctl mask gpu-trace.service
-sudo systemctl mask steamos-log-submitter.service
-sudo systemctl mask steamos-devkit-service.service
+sudo systemctl mask systemd-coredump.socket &>/dev/null
+sudo systemctl mask kdumpst-init.service &>/dev/null
+sudo systemctl mask steamos-kdumpst-layer.service &>/dev/null
+sudo systemctl mask steamos-dump-info.service &>/dev/null
+sudo systemctl mask steamos-cfs-debugfs-tunings.service &>/dev/null
+sudo systemctl mask gpu-trace.service &>/dev/null
+sudo systemctl mask steamos-log-submitter.service &>/dev/null
+sudo systemctl mask steamos-devkit-service.service &>/dev/null
 
 echo test sh
 sudo -- bash -c 'echo "debug.kprobes-optimization=0\ndebug.exception-trace=0\nkernel.printk="0 0 0 0"\nnet.ipv4.tcp_timestamps=0\nkernel.nmi_watchdog=0" >> /etc/sysctl.d/99-steamos-tweaks.conf'
