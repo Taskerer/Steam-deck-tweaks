@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# pacman-key initialization
+############################################################################### 
+sudo steamos-readonly disable
+sudo pacman-key --init
+sudo pacman-key --populate
+
 # Activate MGLRU (Multi-Gen. Least Recently Used)
 ############################################################################### 
 
