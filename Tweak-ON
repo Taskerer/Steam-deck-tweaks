@@ -5,6 +5,7 @@
 sudo steamos-readonly disable &>/dev/null
 sudo pacman-key --init &>/dev/null
 sudo pacman-key --populate &>/dev/null
+echo ✅ PACMAN-KEY INITIALIZATION SUCCESS
 
 # Activate MGLRU (Multi-Gen. Least Recently Used)
 ############################################################################### 
@@ -13,6 +14,7 @@ cat << EOF | sudo tee /etc/tmpfiles.d/mglru.conf &>/dev/null
 w /sys/kernel/mm/lru_gen/enabled - - - - 7 
 w /sys/kernel/mm/lru_gen/min_ttl_ms - - - - 0 
 EOF
+echo ✅ ACTIVATE MGLRU SUCCESS
 
 # Unlocking the memory lock
 ###############################################################################
@@ -21,7 +23,7 @@ cat << EOF | sudo tee /etc/security/limits.d/memlock.conf &>/dev/null
 * hard memlock 2147484
 * soft memlock 2147484
 EOF
-
+echo ✅ UNLOCK THE MEMORY LOCK
 # Changing the I/O (Input/Output) Scheduler
 ############################################################################### 
 
@@ -30,7 +32,7 @@ ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="kyber"
 ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", 
 ATTR{queue/scheduler}="kyber"
 EOF
-
+echo ✅ CHANGE THE I/O SCHEDULER
 # Preventing the superfluous book-keeping of File Access Times
 ###############################################################################
 
@@ -41,7 +43,7 @@ sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab &>/dev/null
 
 sudo sed -i 's/\bGRUB_CMDLINE_LINUX_DEFAULT="\b/&usbhid.jspoll=1 /' /etc/default/grub &>/dev/null
 sudo grub-mkconfig -o /boot/efi/EFI/steamos/grub.cfg &>/dev/null
-
+echo ✅ OVERCLOCK INPUT CONTROLLER
 # NEW GENERATION TWEAKS
 ###############################################################################
 
@@ -53,12 +55,14 @@ sudo systemctl stop steamos-cfs-debugfs-tunings.service &>/dev/null
 sudo systemctl stop gpu-trace.service &>/dev/null
 sudo systemctl stop steamos-log-submitter.service &>/dev/null
 sudo systemctl stop steamos-devkit-service.service &>/dev/null
+echo ✅ STOP UNNECESSARY SERVICES
 
 sudo sysctl -w debug.kprobes-optimization=0 &>/dev/null
 sudo sysctl -w debug.exception-trace=0 &>/dev/null
 sudo sysctl -w kernel.printk="0 0 0 0" &>/dev/null
 sudo sysctl -w net.ipv4.tcp_timestamps=0 &>/dev/null
 sudo sysctl -w kernel.nmi_watchdog=0 &>/dev/null
+echo ✅ IMPROVING THE INTERNET MODULE AND DISABLING LOGGERS
 
 sudo systemctl mask systemd-coredump.socket &>/dev/null
 sudo systemctl mask kdumpst-init.service &>/dev/null
@@ -69,5 +73,5 @@ sudo systemctl mask gpu-trace.service &>/dev/null
 sudo systemctl mask steamos-log-submitter.service &>/dev/null
 sudo systemctl mask steamos-devkit-service.service &>/dev/null
 
-echo test sh
 sudo -- bash -c 'echo "debug.kprobes-optimization=0\ndebug.exception-trace=0\nkernel.printk="0 0 0 0"\nnet.ipv4.tcp_timestamps=0\nkernel.nmi_watchdog=0" >> /etc/sysctl.d/99-steamos-tweaks.conf'
+echo ✅ STEAM OS TWEAKS SUCCESSFULLY APPLIED
