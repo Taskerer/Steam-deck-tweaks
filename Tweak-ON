@@ -14,3 +14,31 @@ ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0
 ATTR{queue/scheduler}="kyber"
 EOF
 sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab
+
+#NEW GENERATION TWEAKS
+systemctl stop systemd-coredump.socket
+systemctl stop kdumpst-init.service
+systemctl stop steamos-kdumpst-layer.service
+systemctl stop steamos-dump-info.service
+systemctl stop steamos-cfs-debugfs-tunings.service
+systemctl stop gpu-trace.service
+systemctl stop steamos-log-submitter.service
+systemctl stop steamos-devkit-service.service
+
+sysctl -w debug.kprobes-optimization=0
+sysctl -w debug.exception-trace=0
+sysctl -w kernel.printk="0 0 0 0"
+sysctl -w net.ipv4.tcp_timestamps=0
+sysctl -w kernel.nmi_watchdog=0
+
+systemctl mask systemd-coredump.socket
+systemctl mask kdumpst-init.service
+systemctl mask steamos-kdumpst-layer.service
+systemctl mask steamos-dump-info.service
+systemctl mask steamos-cfs-debugfs-tunings.service
+systemctl mask gpu-trace.service
+systemctl mask steamos-log-submitter.service
+systemctl mask steamos-devkit-service.service
+
+steamos-readonly disable
+printf 'debug.kprobes-optimization=0\ndebug.exception-trace=0\nkernel.printk="0 0 0 0"\nnet.ipv4.tcp_timestamps=0\nkernel.nmi_watchdog=0' >> /etc/sysctl.d/99-steamos-tweaks.conf
