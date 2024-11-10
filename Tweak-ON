@@ -70,4 +70,4 @@ sudo systemctl mask steamos-log-submitter.service
 sudo systemctl mask steamos-devkit-service.service
 
 echo test sh
-sudo -- bash -c 'echo "debug.kprobes-optimization=0\ndebug.exception-trace=0\nkernel.printk="0 0 0 0"\nnet.ipv4.tcp_timestamps=0\nkernel.nmi_watchdog=0"' >> /etc/sysctl.d/99-steamos-tweaks.conf
+sudo -- bash -c 'echo "debug.kprobes-optimization=0\ndebug.exception-trace=0\nkernel.printk="0 0 0 0"\nnet.ipv4.tcp_timestamps=0\nkernel.nmi_watchdog=0" >> /etc/sysctl.d/99-steamos-tweaks.conf'
