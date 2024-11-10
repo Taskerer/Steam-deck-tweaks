@@ -2,16 +2,16 @@
 
 # pacman-key initialization
 ############################################################################### 
-sudo steamos-readonly disable
-sudo pacman-key --init
-sudo pacman-key --populate
+sudo steamos-readonly disable > /dev/null
+sudo pacman-key --init > /dev/null
+sudo pacman-key --populate > /dev/null
 
 # Activate MGLRU (Multi-Gen. Least Recently Used)
 ############################################################################### 
 
-cat << EOF | sudo tee /etc/tmpfiles.d/mglru.conf
-w /sys/kernel/mm/lru_gen/enabled - - - - 7
-w /sys/kernel/mm/lru_gen/min_ttl_ms - - - - 0
+cat << EOF | sudo tee /etc/tmpfiles.d/mglru.conf > /dev/null
+w /sys/kernel/mm/lru_gen/enabled - - - - 7 
+w /sys/kernel/mm/lru_gen/min_ttl_ms - - - - 0 
 EOF
 
 # Unlocking the memory lock
