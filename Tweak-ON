@@ -2,9 +2,9 @@
 
 # pacman-key initialization
 ############################################################################### 
-sudo steamos-readonly disable > /dev/null
-sudo pacman-key --init > /dev/null
-sudo pacman-key --populate > /dev/null
+sudo steamos-readonly disable &>/dev/null
+sudo pacman-key --init &>/dev/null
+sudo pacman-key --populate &>/dev/null
 
 # Activate MGLRU (Multi-Gen. Least Recently Used)
 ############################################################################### 
