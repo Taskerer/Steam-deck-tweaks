@@ -30,6 +30,12 @@ EOF
 
 sudo sed -i -e '/home/s/\<defaults\>/&,noatime/' /etc/fstab
 
+# Input controller overclocking
+###############################################################################
+
+sudo sed -i 's/\bGRUB_CMDLINE_LINUX_DEFAULT="\b/&usbhid.jspoll=1 /' /etc/default/grub
+sudo grub-mkconfig -o /boot/efi/EFI/steamos/grub.cfg
+
 # NEW GENERATION TWEAKS
 ###############################################################################
 
