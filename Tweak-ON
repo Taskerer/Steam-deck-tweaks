@@ -57,13 +57,6 @@ sudo systemctl stop steamos-log-submitter.service &>/dev/null
 sudo systemctl stop steamos-devkit-service.service &>/dev/null
 echo ✅ STOP UNNECESSARY SERVICES
 
-sudo sysctl -w debug.kprobes-optimization=0 &>/dev/null
-sudo sysctl -w debug.exception-trace=0 &>/dev/null
-sudo sysctl -w kernel.printk="0 0 0 0" &>/dev/null
-sudo sysctl -w net.ipv4.tcp_timestamps=0 &>/dev/null
-sudo sysctl -w kernel.nmi_watchdog=0 &>/dev/null
-echo ✅ IMPROVING THE INTERNET MODULE AND DISABLING LOGGERS
-
 sudo systemctl mask systemd-coredump.socket &>/dev/null
 sudo systemctl mask kdumpst-init.service &>/dev/null
 sudo systemctl mask steamos-kdumpst-layer.service &>/dev/null
